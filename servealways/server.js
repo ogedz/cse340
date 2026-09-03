@@ -1,11 +1,10 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { dirname } from 'path';
 
 // Create __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +21,10 @@ app.set('view engine', 'ejs');
 
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src', 'views'));
+
+// Debug: Log the views path (remove this after confirming it works)
+console.log('__dirname:', __dirname);
+console.log('Views path:', path.join(__dirname, 'src', 'views'));
 
 /**
  * Routes
@@ -44,5 +47,5 @@ app.get('/projects', async (req, res) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    console.log(`Views directory: ${path.join(__dirname, 'src', 'views')}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
