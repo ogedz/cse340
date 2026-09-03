@@ -1,8 +1,12 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import dotenv from 'dotenv';
 
-// Create __dirname equivalent for ES modules
+// Load environment variables
+dotenv.config();
+
+// Create __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,18 +17,14 @@ const PORT = process.env.PORT || 3000;
  * Configure Express middleware
  */
 
-// Serve static files from the public directory
+// Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set EJS as the templating engine
+// Set EJS as templating engine
 app.set('view engine', 'ejs');
 
-// Tell Express where to find your templates
+// Set views directory
 app.set('views', path.join(__dirname, 'src', 'views'));
-
-// Debug: Log the views path (remove this after confirming it works)
-console.log('__dirname:', __dirname);
-console.log('Views path:', path.join(__dirname, 'src', 'views'));
 
 /**
  * Routes
@@ -44,8 +44,14 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
+// NEW: Categories route
+app.get('/categories', async (req, res) => {
+    const title = 'Service Categories';
+    res.render('categories', { title });
+});
+
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
