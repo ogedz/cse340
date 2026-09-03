@@ -22,10 +22,6 @@ app.set('view engine', 'ejs');
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src', 'views'));
 
-// Debug: Log the views path (remove this after confirming it works)
-console.log('__dirname:', __dirname);
-console.log('Views path:', path.join(__dirname, 'src', 'views'));
-
 /**
  * Routes
  */
@@ -44,8 +40,12 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
+app.get('/categories', async (req, res) => {
+    const title = 'Service Categories';
+    res.render('categories', { title });
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
