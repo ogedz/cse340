@@ -1,11 +1,16 @@
--- src/models/setup.sql
--- Complete database setup for CSE 340
+-- ============================================
+-- CSE 340 - Complete Database Setup Script
+-- ============================================
 
 -- Drop tables in reverse order of dependencies
+DROP TABLE IF EXISTS project_category CASCADE;
 DROP TABLE IF EXISTS project CASCADE;
+DROP TABLE IF EXISTS category CASCADE;
 DROP TABLE IF EXISTS organization CASCADE;
 
--- Create organization table
+-- ============================================
+-- ORGANIZATION TABLE
+-- ============================================
 CREATE TABLE organization (
     organization_id SERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
@@ -14,7 +19,6 @@ CREATE TABLE organization (
     logo_filename VARCHAR(255) NOT NULL
 );
 
--- Insert organizations
 INSERT INTO organization (name, description, contact_email, logo_filename)
 VALUES 
     ('BrightFuture Builders', 
@@ -30,7 +34,9 @@ VALUES
      'hello@unityserve.org', 
      'unityserve-logo.png');
 
--- Create project table
+-- ============================================
+-- PROJECT TABLE
+-- ============================================
 CREATE TABLE project (
     project_id SERIAL PRIMARY KEY,
     organization_id INTEGER NOT NULL,
@@ -41,7 +47,6 @@ CREATE TABLE project (
     FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
 );
 
--- Insert projects
 INSERT INTO project (organization_id, title, description, location, date)
 VALUES 
     (1, 'Community Garden Build', 'Build a community garden in downtown area', '123 Main St', '2026-07-15'),
@@ -60,8 +65,59 @@ VALUES
     (3, 'Blood Donation Campaign', 'Organize a community blood donation drive', '321 Health Dr', '2026-09-18'),
     (3, 'Winter Coat Collection', 'Collect and distribute winter coats', '555 Warm St', '2026-10-25');
 
--- Verify data
-SELECT p.title, o.name as organization, p.date
-FROM project p
-JOIN organization o ON p.organization_id = o.organization_id
-ORDER BY p.date;
+-- ============================================
+-- CATEGORY TABLE
+-- ============================================
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO category (name) VALUES 
+    ('Education'),
+    ('Environment'),
+    ('Community Development'),
+    ('Health & Wellness'),
+    ('Housing & Shelter');
+
+-- ============================================
+-- PROJECT-CATEGORY JUNCTION TABLE
+-- ============================================
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
+);
+
+INSERT INTO project_category (project_id, category_id) VALUES
+    -- BrightFuture Builders projects (1-5)
+    (1, 2), (1, 3),
+    (2, 1),
+    (3, 5),
+    (4, 3),
+    (5, 2), (5, 3),
+    -- GreenHarvest Growers projects (6-10)
+    (6, 2), (6, 3),
+    (7, 4),
+    (8, 3),
+    (9, 1),
+    (10, 2), (10, 1),
+    -- UnityServe Volunteers projects (11-15)
+    (11, 3),
+    (12, 5),
+    (13, 1),
+    (14, 4),
+    (15, 3), (15, 5);
+
+-- ============================================
+-- VERIFY DATA
+-- ============================================
+SELECT 'Organizations:' as "Check", COUNT(*) as count FROM organization
+UNION ALL
+SELECT 'Projects:', COUNT(*) FROM project
+UNION ALL
+SELECT 'Categories:', COUNT(*) FROM category
+UNION ALL
+SELECT 'Project-Category links:', COUNT(*) FROM project_category;

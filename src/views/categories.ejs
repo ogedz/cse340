@@ -3,27 +3,17 @@
 <main>
     <h1><%= title %></h1>
     
-    <h2>Service Project Categories</h2>
-    <p>Browse our service projects by category:</p>
-    
-    <ul class="categories-list">
-        <li class="category-item">
-            <h3>Environmental</h3>
-            <p>Projects focused on protecting and preserving our environment.</p>
-        </li>
-        <li class="category-item">
-            <h3>Educational</h3>
-            <p>Projects that help educate and empower communities.</p>
-        </li>
-        <li class="category-item">
-            <h3>Community Service</h3>
-            <p>Projects that strengthen and support local communities.</p>
-        </li>
-        <li class="category-item">
-            <h3>Health and Wellness</h3>
-            <p>Projects promoting health, wellness, and well-being.</p>
-        </li>
-    </ul>
+    <% if (categories && categories.length > 0) { %>
+        <div class="categories-list">
+            <ul>
+                <% categories.forEach(category => { %>
+                    <li><%= category.name %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } else { %>
+        <p>No categories found in the database.</p>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>
