@@ -328,6 +328,71 @@ ul li strong {
     text-decoration: underline;
 }
 
+/* Projects List */
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.project-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid #3498db;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.project-header h2 {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.organization-tag {
+    background-color: #3498db;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.project-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.project-details {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.project-details span {
+    background-color: #e9ecef;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
 /* Footer */
 footer {
     background: var(--gray-800);
