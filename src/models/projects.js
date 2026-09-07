@@ -17,6 +17,7 @@ const getAllProjects = async () => {
     return result.rows;
 };
 
+
 /**
  * Get projects for a specific organization
  * @param {number} organizationId - The organization ID
