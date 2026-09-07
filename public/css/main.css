@@ -274,6 +274,60 @@ ul li strong {
 .category-item:nth-child(3) { border-left-color: #ef6c00; }
 .category-item:nth-child(4) { border-left-color: #6a1b9a; }
 
+/* Organizations Grid */
+.organizations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.organization-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.organization-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.organization-card .org-logo {
+    max-width: 120px;
+    max-height: 120px;
+    margin: 0 auto 15px;
+    display: block;
+}
+
+.organization-card h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.organization-card p {
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.organization-card .contact-email {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.organization-card .contact-email a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.organization-card .contact-email a:hover {
+    text-decoration: underline;
+}
+
 /* Footer */
 footer {
     background: var(--gray-800);
