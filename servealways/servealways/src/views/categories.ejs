@@ -3,7 +3,6 @@
 <main>
     <h1><%= title %></h1>
     
-<<<<<<< HEAD
     <h2>Service Project Categories</h2>
     <p>Browse our service projects by category:</p>
     
@@ -25,19 +24,6 @@
             <p>Projects promoting health, wellness, and well-being.</p>
         </li>
     </ul>
-=======
-    <% if (categories && categories.length > 0) { %>
-        <div class="categories-list">
-            <ul>
-                <% categories.forEach(category => { %>
-                    <li><%= category.name %></li>
-                <% }) %>
-            </ul>
-        </div>
-    <% } else { %>
-        <p>No categories found in the database.</p>
-    <% } %>
->>>>>>> 93043284aad4588971ac0427142097f785019768
 </main>
 
 <%- include('partials/footer') %>

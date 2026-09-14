@@ -2,6 +2,7 @@
 
 <main>
     <h1><%= title %></h1>
+<<<<<<< HEAD
 
     <p>Here are a few of our partner organizations:</p>
     <ul>
@@ -9,6 +10,29 @@
         <li><img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo"><strong>GreenHarvest Growers</strong>: contact@greenharvest.org</li>
         <li><img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo"><strong>UnityServe Volunteers</strong>: hello@unityserve.org</li>
     </ul>
+=======
+    
+    <div class="organizations-grid">
+        <% if (organizations && organizations.length > 0) { %>
+            <% organizations.forEach(org => { %>
+                <div class="organization-card">
+                    <img src="/images/<%= org.logo_filename %>" 
+                         alt="<%= org.name %> logo" 
+                         class="org-logo">
+                    <h2><%= org.name %></h2>
+                    <p><%= org.description %></p>
+                    <p class="contact-email">
+                        📧 <a href="mailto:<%= org.contact_email %>">
+                            <%= org.contact_email %>
+                        </a>
+                    </p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No organizations found in the database.</p>
+        <% } %>
+    </div>
+>>>>>>> 93043284aad4588971ac0427142097f785019768
 </main>
 
 <%- include('partials/footer') %>

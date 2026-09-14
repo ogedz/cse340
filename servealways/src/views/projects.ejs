@@ -2,6 +2,7 @@
 
 <main>
     <h1><%= title %></h1>
+<<<<<<< HEAD
 
     <h2>Upcoming Service Projects</h2>
     <ul>
@@ -9,6 +10,30 @@
         <li>Food Drive - Help collect and distribute food to those in need.</li>
         <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
     </ul>
+=======
+    
+    <% if (projects && projects.length > 0) { %>
+        <div class="projects-list">
+            <% projects.forEach(project => { %>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h2><%= project.title %></h2>
+                        <span class="organization-tag">
+                            🏢 <%= project.organization_name %>
+                        </span>
+                    </div>
+                    <p class="project-description"><%= project.description %></p>
+                    <div class="project-details">
+                        <span class="project-location">📍 <%= project.location %></span>
+                        <span class="project-date">📅 <%= project.date %></span>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p>No projects found in the database.</p>
+    <% } %>
+>>>>>>> 93043284aad4588971ac0427142097f785019768
 </main>
 
 <%- include('partials/footer') %>
