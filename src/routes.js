@@ -13,8 +13,8 @@ router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/projects', showProjectsPage);
 router.get('/categories', showCategoriesPage);
-
-// Error test route
+router.get('/organization/:id', showOrganizationDetailsPage); 
+// error-handling routes
 router.get('/test-error', testErrorPage);
 
 export default router;

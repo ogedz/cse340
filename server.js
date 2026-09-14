@@ -2,9 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { testConnection } from './src/models/db.js';
-import { getAllOrganizations } from './src/models/organizations.js';
-import { getAllProjects } from './src/models/projects.js';
-import { getAllCategories } from './src/models/categories.js';
+import router from './src/routes.js';
 
 // Get current directory path for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -37,53 +35,9 @@ app.use((req, res, next) => {
 });
 
 /**
- * Routes
+ * Routes - Use the router from routes.js
  */
-app.get('/', async (req, res) => {
-    const title = 'Home';
-    res.render('home', { title });
-});
-
-app.get('/organizations', async (req, res) => {
-    try {
-        const organizations = await getAllOrganizations();
-        const title = 'Our Partner Organizations';
-        res.render('organizations', { title, organizations });
-    } catch (error) {
-        console.error('Error fetching organizations:', error);
-        res.status(500).send('Error loading organizations');
-    }
-});
-
-app.get('/projects', async (req, res) => {
-    try {
-        const projects = await getAllProjects();
-        const title = 'Service Projects';
-        res.render('projects', { title, projects });
-    } catch (error) {
-        console.error('Error fetching projects:', error);
-        res.status(500).send('Error loading projects');
-    }
-});
-
-app.get('/categories', async (req, res) => {
-    try {
-        const categories = await getAllCategories();
-        const title = 'Service Project Categories';
-        res.render('categories', { title, categories });  // ← Must pass categories here
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).send('Error loading categories');
-    }
-});
-
-
-app.get('/test-error', (req, res, next) => {
-    const err = new Error('This is a test error');
-    err.status = 500;
-    next(err);
-});
-
+app.use(router);
 
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
@@ -108,7 +62,6 @@ app.use((err, req, res, next) => {
     
     res.status(status).render(`errors/${template}`, context);
 });
-
 
 /**
  * Start the server
