@@ -3,6 +3,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
+
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 // Get current directory path for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -13,12 +17,23 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// Allow Express to receive and process common POST data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Set up static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
+
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 }
+}));
 
 // Middleware to log all incoming requests
 app.use((req, res, next) => {
@@ -37,6 +52,7 @@ app.use((req, res, next) => {
 /**
  * Routes - Use the router from routes.js
  */
+app.use(flash);
 app.use(router);
 
 // Catch-all route for 404 errors

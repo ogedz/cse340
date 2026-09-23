@@ -28,6 +28,8 @@
     <% } else { %>
         <p>No projects found for this organization.</p>
     <% } %>
+
+    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit</a></p>
 </main>
 
 <%- include('partials/footer') %>
