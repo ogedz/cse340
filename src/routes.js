@@ -16,6 +16,8 @@ import {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
     projectValidation
 } from './controllers/projects.js';
 
@@ -46,6 +48,10 @@ router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/new-project', showNewProjectForm);
 router.post('/new-project', projectValidation, processNewProjectForm);
+
+// Edit project routes
+router.get('/edit-project/:id', showEditProjectForm);
+router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 
 // Categories
 router.get('/categories', showCategoriesPage);

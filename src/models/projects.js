@@ -90,15 +90,7 @@ const getCategoriesByProjectId = async (projectId) => {
     return result.rows;
 };
 
-/**
- * Create a new service project in the database
- * @param {string} title - The project title
- * @param {string} description - The project description
- * @param {string} location - The project location
- * @param {string} date - The project date
- * @param {number} organizationId - The organization ID
- * @returns {Promise<number>} The new project ID
- */
+
 const createProject = async (title, description, location, date, organizationId) => {
     const query = `
         INSERT INTO project (title, description, location, date, organization_id)
@@ -121,11 +113,36 @@ const createProject = async (title, description, location, date, organizationId)
 };
 
 
+const updateProject = async (projectId, title, description, location, date, organizationId) => {
+    const query = `
+        UPDATE project
+        SET title = $1, description = $2, location = $3, date = $4, organization_id = $5
+        WHERE project_id = $6
+        RETURNING project_id;
+    `;
+
+    const queryParams = [title, description, location, date, organizationId, projectId];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0) {
+        throw new Error('Project not found');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Updated project with ID:', projectId);
+    }
+
+    return result.rows[0].project_id;
+};
+
+// Update the export to include updateProject
 export { 
     getAllProjects, 
     getUpcomingProjects, 
     getProjectDetails, 
     getProjectsByOrganizationId,
     getCategoriesByProjectId,
-    createProject
+    createProject,
+    updateProject
 };
+
