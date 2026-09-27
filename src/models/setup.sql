@@ -7,6 +7,33 @@ DROP TABLE IF EXISTS project_category CASCADE;
 DROP TABLE IF EXISTS project CASCADE;
 DROP TABLE IF EXISTS category CASCADE;
 DROP TABLE IF EXISTS organization CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS roles CASCADE;
+
+-- ============================================
+-- ROLES TABLE (Week 05)
+-- ============================================
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+INSERT INTO roles (role_name, role_description) VALUES 
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+-- ============================================
+-- USERS TABLE (Week 05)
+-- ============================================
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 -- ============================================
 -- ORGANIZATION TABLE
@@ -92,19 +119,16 @@ CREATE TABLE project_category (
 );
 
 INSERT INTO project_category (project_id, category_id) VALUES
-    -- BrightFuture Builders projects (1-5)
     (1, 2), (1, 3),
     (2, 1),
     (3, 5),
     (4, 3),
     (5, 2), (5, 3),
-    -- GreenHarvest Growers projects (6-10)
     (6, 2), (6, 3),
     (7, 4),
     (8, 3),
     (9, 1),
     (10, 2), (10, 1),
-    -- UnityServe Volunteers projects (11-15)
     (11, 3),
     (12, 5),
     (13, 1),
@@ -120,4 +144,8 @@ SELECT 'Projects:', COUNT(*) FROM project
 UNION ALL
 SELECT 'Categories:', COUNT(*) FROM category
 UNION ALL
-SELECT 'Project-Category links:', COUNT(*) FROM project_category;
+SELECT 'Project-Category links:', COUNT(*) FROM project_category
+UNION ALL
+SELECT 'Roles:', COUNT(*) FROM roles
+UNION ALL
+SELECT 'Users:', COUNT(*) FROM users;

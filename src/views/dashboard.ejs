@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+
+    <h2>Welcome back, <%= name %>!</h2>
+    
+    <div class="dashboard-info">
+        <p><strong>Name:</strong> <%= name %></p>
+        <p><strong>Email:</strong> <%= email %></p>
+    </div>
+
+    <div class="button-group">
+        <a href="/organizations" class="btn btn-primary">Browse Organizations</a>
+        <a href="/projects" class="btn btn-primary">Browse Projects</a>
+        <a href="/categories" class="btn btn-primary">Browse Categories</a>
+    </div>
+</main>
+<%- include('partials/footer') %>

@@ -33,6 +33,16 @@ import {
     categoryValidation
 } from './controllers/categories.js';
 
+import { 
+    showUserRegistrationForm, 
+    processUserRegistrationForm,
+    showLoginForm,
+    processLoginForm,
+    processLogout,
+    requireLogin,
+    showDashboard
+} from './controllers/users.js';
+
 import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
@@ -53,28 +63,32 @@ router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/new-project', showNewProjectForm);
 router.post('/new-project', projectValidation, processNewProjectForm);
-
-// Edit project routes
 router.get('/edit-project/:id', showEditProjectForm);
 router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 
 // Categories
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
+router.get('/new-category', showNewCategoryForm);
+router.post('/new-category', categoryValidation, processNewCategoryForm);
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 
 // Assign categories to project
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
+// User registration and login
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
+
+// Protected routes
+router.get('/dashboard', requireLogin, showDashboard);
+
 // Error test
 router.get('/test-error', testErrorPage);
-
-// New category routes
-router.get('/new-category', showNewCategoryForm);
-router.post('/new-category', categoryValidation, processNewCategoryForm);
-
-// Edit category routes
-router.get('/edit-category/:id', showEditCategoryForm);
-router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 
 export default router;
