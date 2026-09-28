@@ -28,9 +28,11 @@
         <% } %>
     </div>
 
-    <div class="button-group">
-        <a href="/new-organization" class="btn btn-success">➕ Add a New Organization</a>
-    </div>
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="button-group">
+            <a href="/new-organization" class="btn btn-success">➕ Add a New Organization</a>
+        </div>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>

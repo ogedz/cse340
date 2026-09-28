@@ -31,9 +31,11 @@
         <p>No upcoming projects found.</p>
     <% } %>
 
-    <div class="button-group">
-        <a href="/new-project" class="btn btn-success">➕ Add a New Service Project</a>
-    </div>
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="button-group">
+            <a href="/new-project" class="btn btn-success">➕ Add a New Service Project</a>
+        </div>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>

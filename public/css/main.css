@@ -786,6 +786,68 @@ form {
     text-decoration: underline;
 }
 
+/* Users table */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.users-table thead {
+    background-color: var(--primary);
+    color: white;
+}
+
+.users-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.users-table tbody tr {
+    border-bottom: 1px solid var(--gray-200);
+    transition: background-color 0.2s ease;
+}
+
+.users-table tbody tr:hover {
+    background-color: var(--gray-50);
+}
+
+.users-table td {
+    padding: 14px 18px;
+    color: var(--gray-700);
+    font-size: 1rem;
+}
+
+/* Role badges */
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.role-admin {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.role-user {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
 /* ============================================
    FOOTER
    ============================================ */
