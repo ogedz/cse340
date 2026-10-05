@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <% if (volunteers && volunteers.length > 0) { %>
+        <div class="table-wrapper">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Volunteer</th>
+                        <th>Email</th>
+                        <th>Project</th>
+                        <th>Organization</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% volunteers.forEach(v => { %>
+                        <tr>
+                            <td><%= v.user_name %></td>
+                            <td><%= v.user_email %></td>
+                            <td>
+                                <a href="/project/<%= v.project_id %>">
+                                    <%= v.project_title %>
+                                </a>
+                            </td>
+                            <td><%= v.organization_name %></td>
+                            <td><%= v.project_date %></td>
+                            <td>
+                                <a href="/volunteers/<%= v.user_id %>/<%= v.project_id %>/remove" 
+                                   class="btn btn-small"
+                                   onclick="return confirm('Remove this volunteer from this project?')">Remove</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <p>No volunteers have signed up for any projects yet.</p>
+    <% } %>
+
+    <div class="button-group">
+        <a href="/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

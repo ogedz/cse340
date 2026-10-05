@@ -7,9 +7,6 @@
     <div class="dashboard-info">
         <p><strong>Name:</strong> <%= name %></p>
         <p><strong>Email:</strong> <%= email %></p>
-        <% if (user && user.role_name === 'admin') { %>
-            <p><strong>Role:</strong> <span class="role-badge role-admin">admin</span></p>
-        <% } %>
     </div>
 
     <div class="button-group">
@@ -17,8 +14,31 @@
         <a href="/projects" class="btn btn-primary">Browse Projects</a>
         <a href="/categories" class="btn btn-primary">Browse Categories</a>
         <% if (user && user.role_name === 'admin') { %>
-            <a href="/users" class="btn btn-success">👥 View All Users</a>
+            <a href="/users" class="btn btn-success">View All Users</a>
+            <a href="/volunteers" class="btn btn-success"> View All Volunteers</a>
         <% } %>
     </div>
+
+    <h2>My Volunteer Projects</h2>
+    <% if (volunteerProjects && volunteerProjects.length > 0) { %>
+        <ul class="volunteer-list">
+            <% volunteerProjects.forEach(project => { %>
+                <li>
+                    <div class="volunteer-project-info">
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.title %>
+                        </a>
+                        <span class="volunteer-org">— <%= project.organization_name %></span>
+                        <span class="volunteer-date"><%= project.date %></span>
+                    </div>
+                    <a href="/project/<%= project.project_id %>/remove-volunteer" 
+                       class="btn btn-secondary btn-small">Remove</a>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>You have not volunteered for any projects yet. 
+           <a href="/projects">Browse projects</a> to find opportunities!</p>
+    <% } %>
 </main>
 <%- include('partials/footer') %>

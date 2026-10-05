@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS category CASCADE;
 DROP TABLE IF EXISTS organization CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS volunteer CASCADE;
 
 -- ============================================
 -- ROLES TABLE (Week 05)
@@ -136,6 +137,17 @@ INSERT INTO project_category (project_id, category_id) VALUES
     (15, 3), (15, 5);
 
 -- ============================================
+-- VOLUNTEER TABLE (Week 06)
+-- ============================================
+CREATE TABLE volunteer (
+    user_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, project_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE
+);
+
+-- ============================================
 -- VERIFY DATA
 -- ============================================
 SELECT 'Organizations:' as "Check", COUNT(*) as count FROM organization
@@ -149,3 +161,4 @@ UNION ALL
 SELECT 'Roles:', COUNT(*) FROM roles
 UNION ALL
 SELECT 'Users:', COUNT(*) FROM users;
+SELECT 'Volunteers:', COUNT(*) FROM volunteer;

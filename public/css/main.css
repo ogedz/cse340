@@ -786,45 +786,6 @@ form {
     text-decoration: underline;
 }
 
-/* Users table */
-.users-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background: var(--white);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-}
-
-.users-table thead {
-    background-color: var(--primary);
-    color: white;
-}
-
-.users-table th {
-    padding: 14px 18px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.users-table tbody tr {
-    border-bottom: 1px solid var(--gray-200);
-    transition: background-color 0.2s ease;
-}
-
-.users-table tbody tr:hover {
-    background-color: var(--gray-50);
-}
-
-.users-table td {
-    padding: 14px 18px;
-    color: var(--gray-700);
-    font-size: 1rem;
-}
 
 /* Role badges */
 .role-badge {
@@ -846,6 +807,200 @@ form {
     background-color: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;
+}
+
+/* Volunteer section on project details */
+.volunteer-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: var(--gray-50);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--success);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.volunteer-status {
+    margin: 0;
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* Volunteer list on dashboard */
+.volunteer-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.volunteer-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--gray-50);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    border-left: 4px solid var(--success);
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.volunteer-project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.volunteer-project-info a {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.05rem;
+    text-decoration: none;
+}
+
+.volunteer-project-info a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.volunteer-org,
+.volunteer-date {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+.btn-small {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   RESPONSIVE TABLE FOR VOLUNTEERS
+   ============================================ */
+
+/* Table wrapper for horizontal scroll on tiny screens */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 20px 0;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Users table + Volunteers table */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    min-width: 700px; /* Ensures scroll on very small screens */
+}
+
+.users-table thead {
+    background-color: var(--primary);
+    color: white;
+}
+
+.users-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.users-table tbody tr {
+    border-bottom: 1px solid var(--gray-200);
+    transition: background-color 0.2s ease;
+}
+
+.users-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.users-table tbody tr:hover {
+    background-color: var(--gray-50);
+}
+
+.users-table td {
+    padding: 14px 18px;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.users-table td a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.users-table td a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   REMOVE BUTTON IN TABLE
+   ============================================ */
+.users-table .btn-small {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--error);
+    border: 2px solid var(--error);
+    transition: all 0.2s ease;
+}
+
+.users-table .btn-small:hover {
+    background-color: var(--error);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(198, 40, 40, 0.2);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (Tablet)
+   ============================================ */
+@media (max-width: 768px) {
+    .users-table th,
+    .users-table td {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .users-table .btn-small {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (Phone)
+   ============================================ */
+@media (max-width: 480px) {
+    .users-table th,
+    .users-table td {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+
+    .users-table .btn-small {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        border-width: 1px;
+    }
 }
 
 /* ============================================

@@ -42,7 +42,11 @@ import {
     requireLogin,
     requireRole,
     showDashboard,
-    showUsersPage
+    showUsersPage,
+    volunteerForProject,
+    showAllVolunteersPage, 
+    removeVolunteerFromProject,
+    adminRemoveVolunteer 
 } from './controllers/users.js';
 
 import { testErrorPage } from './controllers/errors.js';
@@ -68,6 +72,13 @@ router.post('/new-project', requireRole('admin'), projectValidation, processNewP
 router.get('/edit-project/:id', requireRole('admin'), showEditProjectForm);
 router.post('/edit-project/:id', requireRole('admin'), projectValidation, processEditProjectForm);
 
+// Volunteer routes (login required)
+router.get('/project/:id/volunteer', requireLogin, volunteerForProject);
+router.get('/project/:id/remove-volunteer', requireLogin, removeVolunteerFromProject);
+
+router.get('/volunteers', requireRole('admin'), showAllVolunteersPage);
+router.get('/volunteers/:userId/:projectId/remove', requireRole('admin'), adminRemoveVolunteer);
+
 // Categories
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
@@ -87,13 +98,15 @@ router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 
+router.get('/volunteers', requireRole('admin'), showAllVolunteersPage);
+
 // Protected routes
 router.get('/dashboard', requireLogin, showDashboard);
 
-// Error test
-router.get('/test-error', testErrorPage);
-
 // Admin-only users page
 router.get('/users', requireRole('admin'), showUsersPage);
+
+// Error test
+router.get('/test-error', testErrorPage);
 
 export default router;

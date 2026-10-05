@@ -29,6 +29,18 @@
                     <span>No categories assigned</span>
                 <% } %>
             </div>
+
+            <!-- Volunteer Section (only for logged-in users) -->
+            <% if (isLoggedIn) { %>
+                <div class="volunteer-section">
+                    <% if (userIsVolunteer) { %>
+                        <p class="volunteer-status">✅ You are volunteering for this project</p>
+                        <a href="/project/<%= project.project_id %>/remove-volunteer" class="btn btn-secondary">Remove Me as Volunteer</a>
+                    <% } else { %>
+                        <a href="/project/<%= project.project_id %>/volunteer" class="btn btn-success">🙋 Volunteer for this Project</a>
+                    <% } %>
+                </div>
+            <% } %>
             
             <div class="project-actions">
                 <% if (user && user.role_name === 'admin') { %>

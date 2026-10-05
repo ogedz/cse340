@@ -18,6 +18,9 @@
                 <% if (user && user.role_name === 'admin') { %>
                     <li><a href="/new-organization">+ Add Org</a></li>
                 <% } %>
+                <!-- <% if (user && user.role_name === 'admin') { %>
+                    <li><a href="/volunteers">Volunteers</a></li>
+                <% } %> -->
                 <li><a href="/logout">Logout (<%= user.name %>)</a></li>
             <% } else { %>
                 <li><a href="/register">Register</a></li>

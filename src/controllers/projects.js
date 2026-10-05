@@ -6,13 +6,11 @@ import {
     createProject,
     updateProject
 } from '../models/projects.js';
-
 import { getAllOrganizations } from '../models/organizations.js';
+import { isVolunteer } from '../models/volunteers.js';
 
-// Number of upcoming projects to display
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
-// Validation rules for project form
 const projectValidation = [
     body('title')
         .trim()
@@ -44,8 +42,19 @@ const showProjectDetailsPage = async (req, res) => {
     const projectId = req.params.id;
     const project = await getProjectDetails(projectId);
     const categories = await getCategoriesByProjectId(projectId);
+    
+    let userIsVolunteer = false;
+    if (req.session.user) {
+        userIsVolunteer = await isVolunteer(req.session.user.user_id, projectId);
+    }
+    
     const title = project ? project.title : 'Project Details';
-    res.render('project', { title, project, categories });
+    res.render('project', { 
+        title, 
+        project, 
+        categories, 
+        userIsVolunteer 
+    });
 };
 
 const showNewProjectForm = async (req, res) => {
@@ -55,7 +64,6 @@ const showNewProjectForm = async (req, res) => {
 };
 
 const processNewProjectForm = async (req, res) => {
-    // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         errors.array().forEach((error) => {
@@ -64,7 +72,6 @@ const processNewProjectForm = async (req, res) => {
         return res.redirect('/new-project');
     }
 
-    // Extract form data
     const { title, description, location, date, organizationId } = req.body;
 
     try {
@@ -90,7 +97,6 @@ const processEditProjectForm = async (req, res) => {
     const projectId = req.params.id;
     const { title, description, location, date, organizationId } = req.body;
 
-    // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         errors.array().forEach((error) => {
@@ -104,7 +110,6 @@ const processEditProjectForm = async (req, res) => {
     res.redirect(`/project/${projectId}`);
 };
 
-// Update the export at the bottom
 export { 
     showProjectsPage, 
     showProjectDetailsPage,
